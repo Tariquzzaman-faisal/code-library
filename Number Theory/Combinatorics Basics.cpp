@@ -28,6 +28,31 @@ template <int32_t MOD> modint<MOD> operator * (int32_t value, modint<MOD> n) { r
 template <int32_t MOD> istream & operator >> (istream & in, modint<MOD> &n) { return in >> n.value; }
 template <int32_t MOD> ostream & operator << (ostream & out, modint<MOD> n) { return out << n.value; }
 
+ll C(ll n, ll r)
+{
+  if (r > n)return 0;
+  ll ans = fact[n];
+  ans = mod_mul(ans, ifact[r]);
+  ans = mod_mul(ans, ifact[n - r]);
+  return ans;
+  ///////////////////////////
+  //Put this in global
+  // change this N as required
+  vll fact(N + 1, 1);
+  vll ifact(N + 1, 1);
+  //Put this inside main function
+  for (int i = 2; i <= N; ++i)
+  {
+      fact[i] = mod_mul(fact[i - 1], i);
+  }
+  ifact[N] = inv(fact[N]);
+  for (int i = N - 1; i > 0; i--)
+  {
+      ifact[i] = mod_mul(i + 1, ifact[i + 1]);
+  }
+  ///////////////////////
+}
+
 using mint = modint<mod>;
 
 struct combi{
